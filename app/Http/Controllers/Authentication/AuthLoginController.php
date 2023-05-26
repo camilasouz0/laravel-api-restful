@@ -107,7 +107,7 @@ class AuthLoginController extends Controller
      *
      *   @OA\Parameter(
      *      name="email",
-     *      in="body",
+     *      in="query",
      *      required=true,
      *      @OA\Schema(
      *           type="string"
@@ -115,7 +115,7 @@ class AuthLoginController extends Controller
      *   ),
      *   @OA\Parameter(
      *      name="name",
-     *      in="body",
+     *      in="query",
      *      required=true,
      *      @OA\Schema(
      *           type="string"
@@ -123,7 +123,7 @@ class AuthLoginController extends Controller
      *   ),
      *   @OA\Parameter(
      *      name="password",
-     *      in="body",
+     *      in="query",
      *      required=true,
      *      @OA\Schema(
      *          type="string"
