@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: 'Webapp API'
+  version: '1.0'
+paths:
+  /api/v1/users:
+    get:
+      tags:
+        - user
+      summary: 'Returns a list of users'
+      description: 'Returns a object of users'
+      operationId: b343fe695d1beaa03b7deb8449dd1b7c
+      responses:
+        '200':
+          description: 'A list with users'
+      security:
+        -
+          bearer_token: []
+  '/api/v1/users/{id}':
+    post:
+      tags:
+        - user
+      summary: 'Returns a single user'
+      description: 'Returns a single user from ID'
+      operationId: 37d7b39f83f01acf3c56f8242ad1cb16
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'User ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'A list with users'
+      security:
+        -
+          bearer_token: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      in: header
+      bearerFormat: JWT
+      scheme: bearer
