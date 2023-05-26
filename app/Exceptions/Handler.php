@@ -4,10 +4,14 @@ namespace App\Exceptions;
 
 use Illuminate\Http\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
 use Throwable;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -32,14 +36,37 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function(TokenInvalidException $e, $request){
-            return Response::json(['error'=>'Invalid token'],401);
+            return response()->json([
+                'status' => 401,
+                'message' => 'Token JWT invalido'
+            ], 401);
         });
         $this->renderable(function (TokenExpiredException $e, $request) {
-            return Response::json(['error'=>'Token has Expired'],401);
+            return response()->json([
+                'status' => 401,
+                'message' => 'Token JWT expirado'
+            ], 401);
         });
 
         $this->renderable(function (JWTException $e, $request) {
-            return Response::json(['error'=>'Token not parsed'],401);
+            return response()->json([
+                'status' => 401,
+                'message' => 'Token nao informado'
+            ], 401);
+        });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            return response()->json([
+                'status' => 405,
+                'message' => 'Metodo nao permitido'
+            ], 405);
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Rota nao encontrada'
+            ], 404);
         });
     }
 }

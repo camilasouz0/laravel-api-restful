@@ -37,6 +37,38 @@ paths:
       security:
         -
           apiAuth: []
+  /api/v1/login:
+    post:
+      tags:
+        - Login
+      summary: Login
+      operationId: login
+      parameters:
+        -
+          name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        -
+          name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json: {  }
+        '401':
+          description: Unauthenticated
+        '400':
+          description: 'Bad Request'
+        '404':
+          description: 'not found'
+        '403':
+          description: Forbidden
 components:
   securitySchemes:
     apiAuth:

@@ -9,18 +9,63 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Hash;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class AuthLoginController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'registrar']]);
-    }
 
     public function index(Request $request) {
         return view('auth.login');
     }
+
+    /**
+     * @OA\Post(
+     ** path="/api/v1/login",
+     *   tags={"Login"},
+     *   summary="Login",
+     *   operationId="login",
+     *
+     *   @OA\Parameter(
+     *      name="email",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=401,
+     *       description="Unauthenticated"
+     *   ),
+     *   @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     */
 
     public function login(Request $request)
     {
@@ -31,11 +76,11 @@ class AuthLoginController extends Controller
 
         $credentials = $request->only('email', 'password');
         try {
-            $token = Auth::attempt($credentials);
+            $token = JWTAuth::attempt($credentials);
 
             if ($token == false) {
                 return response()->json([
-                    'error' => 'Invalid Credentials'
+                    'error' => 'Usuario ou senha incorreto!'
                 ], 401);
             } else {
                 return response()->json([
@@ -48,10 +93,67 @@ class AuthLoginController extends Controller
             }
         } catch (Exception $e) {
             return response()->json([
-                'error' => 'Could not create token. ' . $e->getMessage(),
+                'error' => 'Erro interno do servidor. ',
             ], 500);
         }
     }
+
+    /**
+     * @OA\Post(
+     ** path="/api/v1/register",
+     *   tags={"Register"},
+     *   summary="Register",
+     *   operationId="register",
+     *
+     *   @OA\Parameter(
+     *      name="email",
+     *      in="body",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="name",
+     *      in="body",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="password",
+     *      in="body",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=401,
+     *       description="Unauthenticated"
+     *   ),
+     *   @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *)
+     */
 
     public function registrar(Request $request)
     {
