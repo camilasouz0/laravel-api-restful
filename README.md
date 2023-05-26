@@ -10,13 +10,14 @@
 
 # Projeto Laravel+API+RestFul+Swagger
 
-Requisitos: 
+### Requisitos: 
 + PHP 8.1
 + PHP 8.1 - CLI
 + Composer
 + SGDB baseado em MySQL
 + Git
-Modulos necesários
+
+### Modulos necesários
 + mysqli
 + pdo_mysql
 + sodium
@@ -119,6 +120,20 @@ Onde, {token} é o token obtido ao fazer a requisição de login
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
 
+
+## EXECUTAR TESTES (PHPUNIT)
+No terminal para executar todos os testes execute o comando:
+```
+php vendor\bin\phpunit
+```
+No terminal para executar uma classe específica execute o comando:
+```
+php vendor\bin\phpunit ./tests/[NomeDaClasse]
+```
+No terminal para executar um teste específico execute o comando:
+```
+php vendor\bin\phpunit --filter [METODO] ./tests/[NOMEDACLASSE]
+```
 
 ## Licença
 The Laravel framework is open-sourced software licensed under the [MIT license](https://choosealicense.com/licenses/mit/) .
