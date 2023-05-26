@@ -6,7 +6,7 @@ paths:
   /api/v1/users:
     get:
       tags:
-        - user
+        - User
       summary: 'Returns a list of users'
       description: 'Returns a object of users'
       operationId: b343fe695d1beaa03b7deb8449dd1b7c
@@ -15,7 +15,7 @@ paths:
           description: 'A list with users'
       security:
         -
-          bearer_token: []
+          apiAuth: []
   '/api/v1/users/{id}':
     post:
       tags:
@@ -36,10 +36,10 @@ paths:
           description: 'A list with users'
       security:
         -
-          bearer_token: []
+          apiAuth: []
 components:
   securitySchemes:
-    bearerAuth:
+    apiAuth:
       type: http
       name: bearerAuth
       in: header

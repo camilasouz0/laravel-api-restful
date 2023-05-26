@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
  * @OA\Info(title="Webapp API", version="1.0")
  *
  * @OA\SecurityScheme(
- *    securityScheme="bearerAuth",
+ *    securityScheme="apiAuth",
  *    in="header",
  *    name="bearerAuth",
  *    type="http",
@@ -24,24 +24,16 @@ class UserController extends Controller
 {
      /**
      * @OA\Get(
-     *     tags={"user"},
+     *     tags={"User"},
      *     summary="Returns a list of users",
      *     description="Returns a object of users",
      *     security={
-     *       {"bearer_token":{}},
+     *       {"apiAuth":{}},
      *     },
      *     path="/api/v1/users",
      *     @OA\Response(response="200", description="A list with users"),
-     * ),
-     * @SWG\Swagger(
-     *     schemes={"https"},
-     *     @SWG\SecurityScheme(
-     *         securityDefinition="Bearer",
-     *         type="apiKey",
-     *         name="Authorization",
-     *         in="header"
-     *     ), 
-     */
+     * ), 
+    */
     public function index() {
         $usuarios = User::all();
         return $usuarios;
@@ -52,7 +44,7 @@ class UserController extends Controller
      *     tags={"user"},
      *     summary="Returns a single user",
      *     security={
-     *       {"token":{}},
+     *       {"apiAuth":{}},
      *     },
      *     description="Returns a single user from ID",
      *     @OA\Parameter(
