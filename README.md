@@ -1,3 +1,4 @@
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -7,60 +8,117 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Projeto Laravel+API+RestFul+Swagger
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Requisitos: 
++ PHP 8.1
++ PHP 8.1 - CLI
++ Composer
++ SGDB baseado em MySQL
++ Git
+Modulos necesários
++ mysqli
++ pdo_mysql
++ sodium
++ curl
++ fileinfo
++ xdebug
+## Instalação
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Faça o clone do projeto com gitclone
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+  git clone https://github.com/camilasouz0/laravel-api-restful.git
+```
 
-## Learning Laravel
+2. Faça a Instalação do projeto utilizando o seguinte comando
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+  composer install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. Crie o arquivo de variáveis de ambiente utilizando o seguinte comando
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+  cp .env.example .env
+```
 
-## Laravel Sponsors
+5. Crie a secret do JWT e em seguida rode as migrações utilizando os seguintes comandos
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```bash
+  php artisan jwt:secret
+  php artisan migrate
+```
 
-### Premium Partners
+6. Execute o servidor artisan para rodar localmente
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```bash
+  php artisan serve
+```
+    
+## Variáveis de Ambiente
 
-## Contributing
+Para rodar esse projeto, você vai precisar alterar as seguintes variáveis de ambiente no seu .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+`DB_HOST`
 
-## Code of Conduct
+`DB_DATABASE`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`DB_USERNAME`
 
-## Security Vulnerabilities
+`DB_PASSWORD`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Documentação da API
++ A api do Swagger se encontra disponível em http://localhost:8000/swagger/index.html (Se o projeto estiver rodando localmente com o artisan)
++ Todas as requisições devem conter o seguinte header :
+```
+{ 
+   Content-Type: application/json, 
+   Accept: application/json, 
+   Authorization: Bearer {token} 
+}
+```
+Onde, {token} é o token obtido ao fazer a requisição de login
 
-## License
+#### Realiza o login e recupera o TOKEN JWT
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```http
+  POST /api/v1/login
+```
+
+| Parâmetro   | Tipo       |  Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `email` | `string` | **Obrigatório**. Email do usuário
+| `password` | `string` | **Obrigatório**. Senha do usuário |
+
+#### Realiza o registro na API
+
+```http
+  POST /api/v1/register
+```
+
+| Parâmetro   | Tipo       |  Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `name` | `string` | **Obrigatório**. Nome do usuário
+| `email` | `string` | **Obrigatório**. Email do usuário
+| `password` | `string` | **Obrigatório**. Senha do usuário com 6 ou mais caracteres |
+
+#### Retorna todos os usuários
+
+```http
+  GET /api/v1/users
+```
+
+#### Retorna um usuário
+
+```http
+  POST /api/v1/users/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
+
+
+## Licença
+The Laravel framework is open-sourced software licensed under the [MIT license](https://choosealicense.com/licenses/mit/) .

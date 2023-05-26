@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class UserControllerTest extends TestCase
+class AuthControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -30,6 +30,4 @@ class UserControllerTest extends TestCase
 
         $this->assertTrue(true);
     }
-
-
 }

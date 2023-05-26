@@ -105,4 +105,27 @@ class UserTest extends TestCase
 
         $response->assertStatus(405);
     }
+
+    public function test_api_route_users() {
+        $this->json('get', 'api/v1/users')
+         ->assertStatus(Response::HTTP_OK)
+         ->assertJsonStructure(
+             [
+                 'data' => [
+                     '*' => [
+                         'id',
+                         'name',
+                         'email',
+                         'email_verified_at',
+                         'created_at',
+                         'wallet' => [
+                             'id',
+                             'balance'
+                         ]
+                     ]
+                 ]
+             ]
+         );
+  }
+    }
 }
